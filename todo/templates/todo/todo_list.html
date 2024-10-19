@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'todo/styles.css' %}">
+</head>
+<body>
+    <h1>Todo List</h1>
+    <a href="{% url 'todo_create' %}">Create New Task</a>
+    <ul>
+        {% for task in tasks %}
+        <li class="{% if task.completed %}completed{% endif %}">
+            {{ task.title }} - {{ task.completed|yesno:"Completed,Not Completed" }}
+            <div>
+                <a href="{% url 'todo_edit' task.pk %}">Edit</a>
+                <a href="{% url 'todo_delete' task.pk %}">Delete</a>
+            </div>
+        </li>
+        {% endfor %}
+</body>
+</html>
